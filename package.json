@@ -1,0 +1,33 @@
+{
+  "name": "set-env",
+  "description": "Sets additional launch environment variables.",
+  "version": "0.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Jeremiah Senkpiel",
+    "email": "fishrock123@rocketmail.com",
+    "url": "https://searchbeam.jit.su",
+    "twitter": "https://twitter.com/fishrock123"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fishrock123/set-env.git"
+  },
+  "bugs": {
+    "mail": "fishrock123@rocketmail.com",
+    "url": "https://github.com/fishrock123/set-env/issues"
+  },
+  "keywords": [
+    "set",
+    "env",
+    "environment",
+    "variable"
+  ],
+  "dependencies": {
+    "commander": "^2.2.0"
+  },
+  "bin": {
+    "set-env": "./bin/set-env"
+  },
+  "preferGlobal": true
+}

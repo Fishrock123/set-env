@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+
+var fs      = require('fs')
+var os      = require('os')
+var program = require('commander')
+
+program._name = 'set-env'
+
+program
+  .version(require('../package.json').version)
+  .usage('<variable> <value>')
+
+program.parse(process.argv)
+
+if (program.args.length !== 2) throw new Error('Syntax error; usage: set-env <variable> <value>')
+
+switch (os.platform()) {
+  case 'darwin': return set_env_darwin(program.args[0], program.args[1])
+}
+
+function set_env_darwin(vr, val) {
+  var regex   = new RegExp('(setenv ' + vr + ' ).{1,}')
+  var launchd = ''
+
+  try {
+    launchd = fs.readFileSync('/etc/launchd.conf', { encoding: 'utf8' })
+  } catch (err) {
+    if (!err.code === 'ENOENT') throw err
+
+    // create launchd
+    launchd = 'setenv ' + vr + ' %~val'
+  }
+
+  if (regex.test(launchd)) {
+    launchd = launchd.replace(regex, '$1' + val)
+  } else {
+    if (launchd[launchd.length - 1] !== '\n') launchd += '\n'
+
+    launchd += 'setenv ' + vr + ' ' + val + '\n'
+  }
+
+  console.log('> Writing out:\n' + launchd)
+
+  fs.writeFileSync('/etc/launchd.conf', launchd, { encoding: 'utf8' })
+}
