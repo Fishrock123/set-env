@@ -9,6 +9,7 @@ program._name = 'set-env'
 program
   .version(require('../package.json').version)
   .usage('<variable> <value>')
+  .option('-r, --remove', 'removes the value rather than setting it')
 
 program.parse(process.argv)
 
@@ -19,23 +20,20 @@ switch (os.platform()) {
 }
 
 function set_env_darwin(vr, val) {
-  var regex   = new RegExp('(setenv ' + vr + ' ).{1,}')
-  var launchd = ''
+  var regex   = new RegExp('(setenv ' + vr + ' ).{1,}([\n\r])')
+  var launchd = 'setenv ' + vr + ' %~val'
 
   try {
     launchd = fs.readFileSync('/etc/launchd.conf', { encoding: 'utf8' })
   } catch (err) {
     if (!err.code === 'ENOENT') throw err
-
-    // create launchd
-    launchd = 'setenv ' + vr + ' %~val'
   }
 
-  if (regex.test(launchd)) {
-    launchd = launchd.replace(regex, '$1' + val)
-  } else {
-    if (launchd[launchd.length - 1] !== '\n') launchd += '\n'
+  if (launchd[launchd.length - 1] !== '\n') launchd += '\n'
 
+  if (regex.test(launchd)) {
+    launchd = launchd.replace(regex, program.remove ? '' : '$1' + val + '$2')
+  } else if (!program.remove) {
     launchd += 'setenv ' + vr + ' ' + val + '\n'
   }
 
