@@ -14,16 +14,16 @@ $ npm install -g set-env
 
 Only works with OS X at the current time. OS X 10.9.0+ tested.
 
-Sets to `/etc/launchd.conf/` on OS X.
+Sets to `/etc/launchd.conf/` on OS X. `sudo` required.
 
 ```sh
-$ set-env <env-variable> <value>
+$ sudo set-env <env-variable> <value>
 ```
 
 ### Example
 
 ```sh
-$ set-env GITHUB_USERNAME Fishrock123
+$ sudo set-env GITHUB_USERNAME Fishrock123
 > Writing out:
 setenv GITHUB_USERNAME Fishrock123
 
