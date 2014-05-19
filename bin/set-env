@@ -26,14 +26,18 @@ function set_env_darwin(vr, val) {
   try {
     launchd = fs.readFileSync('/etc/launchd.conf', { encoding: 'utf8' })
   } catch (err) {
+    // if the file doesn't exist we'll make it
     if (!err.code === 'ENOENT') throw err
   }
 
+  // always add eof newline if it doesn't exist
   if (launchd[launchd.length - 1] !== '\n') launchd += '\n'
 
   if (regex.test(launchd)) {
+    // has variable, change or remove it
     launchd = launchd.replace(regex, program.remove ? '' : '$1' + val + '$2')
   } else if (!program.remove) {
+    // add variable
     launchd += 'setenv ' + vr + ' ' + val + '\n'
   }
 
