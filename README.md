@@ -1,7 +1,5 @@
 # set-env [![NPM Version](https://badge.fury.io/js/set-env.svg)](https://badge.fury.io/js/set-env)
 
-WORK IN PROGRESS
-
 Sets additional launch environment variables.
 
 ### Install

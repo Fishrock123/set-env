@@ -1,7 +1,7 @@
 {
   "name": "set-env",
   "description": "Sets additional launch environment variables.",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "author": {
     "name": "Jeremiah Senkpiel",
