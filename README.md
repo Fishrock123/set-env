@@ -22,7 +22,7 @@ $ sudo set-env <env-variable> <value>
 
 ### Option flags
 
-- `-r` `--remove` - removes the variable rather than adding it.
+- `-r` `--remove` - removes the variable rather than setting it.
 
 ## Examples
 
