@@ -13,7 +13,11 @@ program
 
 program.parse(process.argv)
 
-if (program.args.length !== 1) throw new Error('Syntax error; usage: set-env <variable> <value>')
+if (program.args.length < 1) {
+  console.log('> logging out existing environment variables:')
+  console.log(process.env)
+  return
+}
 
 switch (os.platform()) {
   case 'darwin': return set_env_darwin(program.args[0], program.args[1])
