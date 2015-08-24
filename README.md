@@ -10,7 +10,7 @@ $ npm install -g set-env
 
 ## Usage
 
-Only works with OS X at the current time. OS X 10.9.0+ tested.
+Only works with OS X at the current time. Does **not** work on OS X 10.10+.
 
 Sets to `/etc/launchd.conf` on OS X. `sudo` is required.
 
